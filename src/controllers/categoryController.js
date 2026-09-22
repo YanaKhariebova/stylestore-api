@@ -2,7 +2,7 @@ import prisma from "../database/prismaClient.js";
 
 export const createCategory = async (req, res, next) => {
   try {
-    const name = req.body.name?.trim();
+    const name = typeof req.body?.name === "string" ? req.body.name.trim() : "";
 
     if (!name) {
       return res.status(400).json({
