@@ -11,14 +11,18 @@ sowie vollständige CRUD-Operationen für Produkte.
 
 ## 🛠️ Technologien und Tools
 
-- Node.js
-- Express
-- PostgreSQL
-- Prisma ORM
-- Zod
-- Helmet
-- Express Rate Limit
-- Postman
+| Technologie/Tool | Verwendung im Projekt |
+| ---------------- | --------------------- |
+| **Node.js** | JavaScript-Laufzeitumgebung, mit der die API auf dem Server ausgeführt wird. Das Projekt verwendet ES Modules und lädt die Umgebungsvariablen beim Start aus der `.env`-Datei. |
+| **Express** | Webframework für den HTTP-Server, die API-Routen, das Verarbeiten von JSON-Anfragen und die zentrale Fehlerbehandlung. |
+| **PostgreSQL** | Relationale SQL-Datenbank zur dauerhaften Speicherung von Kategorien und Produkten. Die Beziehung zwischen beiden Tabellen wird über einen Fremdschlüssel abgebildet. |
+| **Prisma ORM** | Schnittstelle zwischen der Anwendung und PostgreSQL. Prisma definiert die Datenmodelle, verwaltet Migrationen und stellt Methoden für Datenbankabfragen und CRUD-Operationen bereit. |
+| **Prisma PostgreSQL Adapter** | Verbindet den Prisma Client über den `pg`-Treiber mit der PostgreSQL-Datenbank und verwaltet den Connection Pool. |
+| **Zod** | Validiert die Eingabedaten für Produkte. Dadurch werden unter anderem leere Namen, negative Preise, negative Lagerbestände und ungültige Kategorie-IDs verhindert. |
+| **Helmet** | Verbessert die Sicherheit der Express-Anwendung durch das automatische Setzen verschiedener sicherer HTTP-Header. |
+| **Express Rate Limit** | Begrenzt die Anzahl der Anfragen pro IP-Adresse auf 100 innerhalb von 15 Minuten und reduziert dadurch den Missbrauch der API. |
+| **dotenv** | Lädt Umgebungsvariablen wie die Datenbank-Verbindungszeichenfolge aus `.env`, ohne geheime Werte im Quellcode zu speichern. |
+| **Postman** | Dient zum manuellen Testen der Endpunkte, Request-Bodys, HTTP-Statuscodes, Validierungsfehler und Fehlerfälle. |
 
 ## ✨ Funktionen
 
@@ -103,6 +107,18 @@ erDiagram
 | GET     | `/api/products/:id` | Einzelnes Produkt abrufen           |
 | PATCH   | `/api/products/:id` | Produkt teilweise bearbeiten        |
 | DELETE  | `/api/products/:id` | Produkt löschen                     |
+
+## 📊 HTTP-Statuscodes
+
+| Statuscode                  | Bedeutung                                          |
+| --------------------------- | -------------------------------------------------- |
+| `200 OK`                    | Anfrage erfolgreich                                |
+| `201 Created`               | Kategorie oder Produkt erfolgreich erstellt        |
+| `400 Bad Request`           | Ungültige ID oder fehlerhafte Eingabedaten        |
+| `404 Not Found`             | Kategorie, Produkt oder Endpunkt nicht gefunden    |
+| `409 Conflict`              | Kategorie existiert bereits                        |
+| `429 Too Many Requests`     | Rate Limit wurde überschritten                    |
+| `500 Internal Server Error` | Unerwarteter Serverfehler                          |
 
 ## 📬 Beispielanfragen
 
