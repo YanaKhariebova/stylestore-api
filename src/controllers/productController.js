@@ -151,3 +151,35 @@ export const updateProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        message: "Ungültige Produkt-ID",
+      });
+    }
+
+    const existingProduct = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    if (!existingProduct) {
+      return res.status(404).json({
+        message: "Produkt nicht gefunden",
+      });
+    }
+
+    await prisma.product.delete({
+      where: { id },
+    });
+
+    res.status(200).json({
+      message: "Produkt erfolgreich gelöscht",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

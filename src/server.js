@@ -15,7 +15,12 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(
   rateLimit({
+    // Zeitraum, in dem die Anfragen gezählt werden:
+    // 15 Minuten × 60 Sekunden × 1000 Millisekunden
     windowMs: 15 * 60 * 1000,
+
+    // Maximale Anzahl von Anfragen pro IP-Adresse
+    // innerhalb des oben definierten Zeitraums
     limit: 100,
   }),
 );
